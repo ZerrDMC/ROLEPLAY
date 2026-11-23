@@ -1031,4 +1031,816 @@ function generateGoal(occupation,personality) {
   if(personality.name === "Greedy")
     return pick([
       "Become wealthy",
-      "Earn more
+      "Earn more money",
+      "Buy a business"
+    ]);
+
+  if(personality.name === "Romantic")
+    return pick([
+      "Find a partner",
+      "Build a family",
+      "Meet new people"
+    ]);
+
+  if(occupation.name === "Unemployed")
+    return "Find a job";
+
+  return pick([
+    "Save money",
+    "Improve their life",
+    "Make new friends",
+    "Find a better job",
+    "Buy a car"
+  ]);
+}
+
+/* AUTO POPULATION */
+
+function generateCitizens(count) {
+
+  for(let i=0;i<count;i++) {
+    const citizen = createCitizen();
+    citizens.push(citizen);
+
+    addLog(
+      "👤",
+      citizen.name+" moved to Oxford. They are a "+
+      citizen.age+" year old "+citizen.occupation+"."
+    );
+  }
+
+  render();
+  saveGame();
+}
+
+/* MANUAL CITIZEN CREATION */
+
+function openModal() {
+
+  document.getElementById("citizenModal").classList.add("show");
+
+  document.getElementById("occupation").innerHTML =
+    occupations.map(o =>
+      `<option value="${o.name}">${o.name}</option>`
+    ).join("");
+
+  document.getElementById("personality").innerHTML =
+    personalities.map(p =>
+      `<option value="${p.name}">${p.name}</option>`
+    ).join("");
+}
+
+function closeModal() {
+  document.getElementById("citizenModal").classList.remove("show");
+}
+
+function createManualCitizen() {
+
+  const first = document.getElementById("firstName").value.trim();
+  const last = document.getElementById("lastName").value.trim();
+
+  if(!first || !last) {
+    alert("Enter a first and last name.");
+    return;
+  }
+
+  const age = Number(document.getElementById("age").value);
+
+  if(age < 18 || age > 90) {
+    alert("Age must be between 18 and 90.");
+    return;
+  }
+
+  const occName = document.getElementById("occupation").value;
+  const perName = document.getElementById("personality").value;
+
+  const occupation = occupations.find(o=>o.name===occName);
+  const personality = personalities.find(p=>p.name===perName);
+
+  const citizen = createCitizen({
+    name:first+" "+last,
+    age,
+    occupation,
+    personality,
+    money:rand(500,4000)
+  });
+
+  citizens.unshift(citizen);
+
+  addLog("👤",citizen.name+" has been registered as a new Oxford citizen.");
+
+  closeModal();
+  render();
+  saveGame();
+
+  document.getElementById("firstName").value="";
+  document.getElementById("lastName").value="";
+}
+
+/* AUTONOMOUS SIMULATION */
+
+function simulateCitizen(c) {
+
+  if(!c.alive) return;
+
+  // Natural needs
+  c.hunger = clamp(c.hunger-1.5);
+  c.energy = clamp(c.energy-0.8);
+  c.happiness = clamp(c.happiness-0.1);
+
+  // Priority: basic needs
+  if(c.hunger < 22) {
+    eat(c);
+    return;
+  }
+
+  if(c.energy < 18) {
+    sleep(c);
+    return;
+  }
+
+  // Personality decision
+  const roll = Math.random()*100;
+
+  if(c.personality === "Lazy") {
+    if(roll < 55) {
+      relax(c);
+      return;
+    }
+  }
+
+  if(c.personality === "Ambitious") {
+    if(roll < 75) {
+      work(c);
+      return;
+    }
+  }
+
+  if(c.personality === "Greedy") {
+    if(roll < 80) {
+      work(c);
+      return;
+    }
+  }
+
+  if(c.personality === "Introverted") {
+    if(roll < 55) {
+      relax(c);
+      return;
+    }
+  }
+
+  if(c.personality === "Friendly" ||
+     c.personality === "Romantic") {
+    if(roll < 60) {
+      socialize(c);
+      return;
+    }
+  }
+
+  if(c.personality === "Reckless") {
+    if(roll < 30) {
+      adventure(c);
+      return;
+    }
+  }
+
+  // Normal daily life
+  if(c.employed && roll < 55) {
+    work(c);
+    return;
+  }
+
+  if(roll < 75) {
+    socialize(c);
+    return;
+  }
+
+  if(roll < 90) {
+    relax(c);
+    return;
+  }
+
+  explore(c);
+}
+
+/* ACTIONS */
+
+function eat(c) {
+
+  if(c.money >= 15) {
+    c.money -= 15;
+    c.hunger = clamp(c.hunger+45);
+    c.happiness = clamp(c.happiness+3);
+    c.location = pick(["Coffee Shop","Grocery Store","Downtown Oxford"]);
+    c.action = "Buying food and eating";
+  } else {
+    c.hunger = clamp(c.hunger+15);
+    c.action = "Looking for affordable food";
+  }
+
+  addLog("🍔",c.name+" went to get something to eat.");
+}
+
+function sleep(c) {
+
+  c.energy = clamp(c.energy+35);
+  c.location = "Residential District";
+  c.action = "Resting at home";
+
+  addLog("🛌",c.name+" is resting at home.");
+}
+
+function work(c) {
+
+  if(!c.employed) {
+    c.action = "Searching for a job";
+    c.location = "Downtown Oxford";
+
+    if(Math.random()<0.25) {
+      const job = randomOccupation();
+
+      if(job.salary > 0) {
+        c.occupation = job.name;
+        c.salary = job.salary;
+        c.employed = true;
+
+        addLog("💼",c.name+" found a job as a "+job.name+".");
+      }
+    }
+    return;
+  }
+
+  c.workProgress++;
+
+  c.location = getWorkLocation(c);
+  c.action = "Working as "+c.occupation;
+
+  if(c.workProgress >= 3) {
+
+    const income = Math.round(c.salary*(c.workEthic/100)*0.4);
+
+    c.money += income;
+    c.happiness = clamp(c.happiness+2);
+    c.workProgress = 0;
+
+    addLog("💵",c.name+" earned "+money(income)+" working as "+c.occupation+".");
+  }
+}
+
+function getWorkLocation(c) {
+
+  if(c.occupation === "Police Officer")
+    return "Police Department";
+
+  if(c.occupation === "Doctor" || c.occupation === "Paramedic")
+    return "Hospital";
+
+  if(c.occupation === "Mechanic")
+    return "Mechanic Shop";
+
+  if(c.occupation === "Teacher")
+    return "University Area";
+
+  if(c.occupation === "Barista" || c.occupation === "Waiter")
+    return "Coffee Shop";
+
+  if(c.occupation === "Construction Worker")
+    return "Residential District";
+
+  if(c.occupation === "Business Owner")
+    return "Downtown Oxford";
+
+  return "Downtown Oxford";
+}
+
+function socialize(c) {
+
+  const others = citizens.filter(x =>
+    x.id !== c.id &&
+    x.alive &&
+    x.location === c.location
+  );
+
+  if(others.length===0) {
+    c.location = pick([
+      "Downtown Oxford",
+      "Oxford Square",
+      "Coffee Shop",
+      "Park"
+    ]);
+    c.action = "Going out to meet people";
+    return;
+  }
+
+  const other = pick(others);
+
+  const bond = rand(1,10);
+
+  c.happiness = clamp(c.happiness+rand(2,6));
+
+  other.happiness = clamp(other.happiness+rand(1,4));
+
+  let relationship = c.relationships.find(r=>r.id===other.id);
+
+  if(!relationship) {
+    relationship = {
+      id:other.id,
+      name:other.name,
+      level:0
+    };
+
+    c.relationships.push(relationship);
+  }
+
+  relationship.level += bond;
+
+  c.action = "Talking with "+other.name;
+
+  addLog("💬",
+    c.name+" is spending time with "+other.name+"."
+  );
+
+  if(relationship.level > 40 &&
+     !c.relationships.some(r=>r.bestFriend)) {
+
+    relationship.bestFriend = true;
+
+    addLog("🤝",
+      c.name+" and "+other.name+" are becoming close friends."
+    );
+  }
+
+  // Romantic personalities may become interested in each other
+  if(c.personality==="Romantic" &&
+     other.personality==="Romantic" &&
+     Math.random()<0.08) {
+
+    addLog("❤️",
+      c.name+" seems to be developing feelings for "+other.name+"."
+    );
+  }
+}
+
+function relax(c) {
+
+  c.energy = clamp(c.energy+rand(10,25));
+  c.happiness = clamp(c.happiness+rand(2,8));
+  c.location = pick([
+    "Park",
+    "Residential District",
+    "Oxford Square"
+  ]);
+  c.action = "Relaxing and enjoying free time";
+}
+
+function explore(c) {
+
+  c.location = pick(locations);
+  c.action = "Exploring Oxford";
+
+  c.happiness = clamp(c.happiness+1);
+
+  if(Math.random()<0.2) {
+    addLog("🚶",c.name+" explored "+c.location+".");
+  }
+}
+
+function adventure(c) {
+
+  c.location = pick([
+    "Highway",
+    "Downtown Oxford",
+    "Oxford Square"
+  ]);
+
+  c.action = "Looking for adventure";
+
+  if(Math.random()<0.15) {
+    const loss = rand(10,100);
+    c.money = Math.max(0,c.money-loss);
+
+    addLog("⚠️",
+      c.name+" had an unfortunate experience and lost "+money(loss)+"."
+    );
+  } else {
+    c.happiness = clamp(c.happiness+rand(1,8));
+  }
+}
+
+/* WORLD CLOCK */
+
+function advanceTime() {
+
+  simMinutes += 10;
+
+  if(simMinutes >= 24*60) {
+    simMinutes = 0;
+    simDay++;
+    addLog("🌅","A new day begins in Oxford, Mississippi.");
+  }
+
+  tickCounter++;
+
+  // Change weather occasionally
+  if(tickCounter % 50 === 0) {
+    weather = pick(["Sunny","Cloudy","Rainy","Clear"]);
+  }
+
+  // Simulate a few citizens every tick
+  if(citizens.length > 0) {
+
+    const amount = Math.min(
+      citizens.length,
+      Math.max(1,Math.ceil(citizens.length*0.20))
+    );
+
+    for(let i=0;i<amount;i++) {
+      const c = pick(citizens);
+      simulateCitizen(c);
+    }
+  }
+
+  // City costs and taxes
+  if(tickCounter % 20 === 0) {
+    const tax = citizens.length*5;
+    treasury += tax;
+  }
+
+  render();
+  saveGame();
+}
+
+/* TIME CONTROLS */
+
+function toggleSimulation() {
+
+  running = !running;
+
+  document.getElementById("pauseBtn").innerText =
+    running ? "Ⅱ Pause" : "▶ Resume";
+
+  document.getElementById("worldStatus").innerText =
+    running ? "Running" : "Paused";
+
+  document.getElementById("serverStatus").innerText =
+    running ? "ONLINE" : "PAUSED";
+}
+
+const speeds = [1,2,4,8];
+
+function changeSpeed() {
+
+  const index = speeds.indexOf(speed);
+  speed = speeds[(index+1)%speeds.length];
+
+  document.getElementById("speedLabel").innerText = speed+"x";
+
+  document.querySelector('[onclick="changeSpeed()"]').innerText =
+    "⏩ Speed: x"+speed;
+}
+
+/* ACTIVITY */
+
+function addLog(icon,text) {
+
+  const h = getTime();
+
+  activityLog.unshift({
+    icon,
+    text,
+    time:h
+  });
+
+  activityLog = activityLog.slice(0,60);
+}
+
+function getTime() {
+
+  const hours = Math.floor(simMinutes/60);
+  const mins = simMinutes%60;
+
+  return String(hours).padStart(2,"0")+":"+
+         String(mins).padStart(2,"0");
+}
+
+/* RENDER */
+
+function render() {
+
+  renderStats();
+  renderCitizens();
+  renderActivity();
+}
+
+function renderStats() {
+
+  document.getElementById("totalCitizens").innerText =
+    citizens.length;
+
+  document.getElementById("employed").innerText =
+    citizens.filter(c=>c.employed).length;
+
+  document.getElementById("treasury").innerText =
+    money(treasury);
+
+  document.getElementById("simTime").innerText =
+    getTime();
+
+  document.getElementById("simDay").innerText =
+    "Day "+simDay+" · Oxford, MS";
+
+  document.getElementById("worldPopulation").innerText =
+    citizens.length;
+
+  document.getElementById("weather").innerText =
+    weather;
+}
+
+function renderCitizens() {
+
+  const grid = document.getElementById("characterGrid");
+
+  if(citizens.length===0) {
+    grid.innerHTML =
+      "<div class='card'>No citizens yet.</div>";
+    return;
+  }
+
+  grid.innerHTML = citizens.slice(0,100).map(c=>`
+
+    <div class="character">
+
+      <div class="character-top">
+        <div class="avatar">${emojis[c.occupation]||"👤"}</div>
+
+        <div>
+          <div class="character-name">${escapeHTML(c.name)}</div>
+          <div class="character-sub">
+            ${c.age} years old · ${escapeHTML(c.occupation)}
+          </div>
+        </div>
+      </div>
+
+      <div class="personality">
+        ${escapeHTML(c.personality)}
+      </div>
+
+      <div class="character-action">
+        <strong>Current activity:</strong><br>
+        ${escapeHTML(c.action)}
+      </div>
+
+      <div class="character-footer">
+        <span>📍 ${escapeHTML(c.location)}</span>
+        <span class="money">${money(c.money)}</span>
+      </div>
+
+      <div class="needs">
+
+        <div class="need">
+          <small>HUNGER</small>
+          <strong>${Math.round(c.hunger)}%</strong>
+        </div>
+
+        <div class="need">
+          <small>ENERGY</small>
+          <strong>${Math.round(c.energy)}%</strong>
+        </div>
+
+        <div class="need">
+          <small>HAPPINESS</small>
+          <strong>${Math.round(c.happiness)}%</strong>
+        </div>
+
+      </div>
+
+      <div class="character-bottom">
+        <button class="btn small" onclick="inspectCitizen('${c.id}')">
+          View Profile
+        </button>
+
+        <button class="btn small danger" onclick="deleteCitizen('${c.id}')">
+          Remove
+        </button>
+      </div>
+
+    </div>
+
+  `).join("");
+}
+
+function renderActivity() {
+
+  const feed = document.getElementById("activityFeed");
+
+  if(activityLog.length===0) {
+    feed.innerHTML =
+      "<div class='activity-item'>Waiting for city activity...</div>";
+    return;
+  }
+
+  feed.innerHTML = activityLog.map(a=>`
+
+    <div class="activity-item">
+      <span class="time">${a.time} · Oxford, MS</span>
+      ${a.icon} ${escapeHTML(a.text)}
+    </div>
+
+  `).join("");
+}
+
+/* CHARACTER MANAGEMENT */
+
+function inspectCitizen(id) {
+
+  const c = citizens.find(x=>String(x.id)===String(id));
+
+  if(!c) return;
+
+  const friends = c.relationships
+    .map(r=>r.name+" ("+r.level+")")
+    .join("\n");
+
+  alert(
+`CITIZEN PROFILE
+
+Name: ${c.name}
+Age: ${c.age}
+Occupation: ${c.occupation}
+Personality: ${c.personality}
+
+Personality description:
+${c.personalityDescription}
+
+Goal:
+${c.goal}
+
+Location:
+${c.location}
+
+Current action:
+${c.action}
+
+Money:
+${money(c.money)}
+
+Hunger: ${Math.round(c.hunger)}%
+Energy: ${Math.round(c.energy)}%
+Happiness: ${Math.round(c.happiness)}%
+
+Relationships:
+${friends||"No relationships yet."}`
+  );
+}
+
+function deleteCitizen(id) {
+
+  const c = citizens.find(x=>String(x.id)===String(id));
+
+  if(!c) return;
+
+  if(!confirm("Remove "+c.name+" from the city?"))
+    return;
+
+  citizens = citizens.filter(x=>String(x.id)!==String(id));
+
+  addLog("📋",c.name+" has left Oxford.");
+
+  render();
+  saveGame();
+}
+
+/* RESET */
+
+function resetWorld() {
+
+  if(!confirm("Reset the entire city simulation?"))
+    return;
+
+  citizens = [];
+  treasury = 125000;
+  simMinutes = 8*60;
+  simDay = 1;
+  tickCounter = 0;
+  activityLog = [];
+
+  generateCitizens(20);
+
+  addLog("🏙️","Oxford simulation has been restarted.");
+
+  saveGame();
+}
+
+/* SECURITY */
+
+function escapeHTML(value) {
+
+  return String(value).replace(/[&<>"']/g, char => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  }[char]));
+}
+
+/* SAVE / LOAD */
+
+function saveGame() {
+
+  const data = {
+    citizens,
+    treasury,
+    simMinutes,
+    simDay,
+    speed,
+    running,
+    tickCounter,
+    activityLog,
+    weather
+  };
+
+  try {
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
+  } catch(e) {
+    console.warn("Save error",e);
+  }
+}
+
+function loadGame() {
+
+  try {
+
+    const raw = localStorage.getItem(STORAGE_KEY);
+
+    if(!raw) return false;
+
+    const data = JSON.parse(raw);
+
+    citizens = data.citizens || [];
+    treasury = data.treasury ?? 125000;
+    simMinutes = data.simMinutes ?? 480;
+    simDay = data.simDay ?? 1;
+    speed = data.speed ?? 1;
+    running = data.running ?? true;
+    tickCounter = data.tickCounter ?? 0;
+    activityLog = data.activityLog || [];
+    weather = data.weather || "Sunny";
+
+    return true;
+
+  } catch(e) {
+
+    console.error("Load error",e);
+    return false;
+  }
+}
+
+/* ENGINE LOOP */
+
+function engine() {
+
+  if(running) {
+
+    // Speed changes how many simulation ticks pass
+    for(let i=0;i<speed;i++) {
+      advanceTime();
+    }
+  }
+}
+
+function startEngine() {
+
+  if(interval) clearInterval(interval);
+
+  interval = setInterval(engine,1500);
+}
+
+/* INITIALIZATION */
+
+function init() {
+
+  const saved = loadGame();
+
+  if(!saved || citizens.length===0) {
+
+    citizens = [];
+
+    generateCitizens(20);
+
+    addLog("🏙️",
+      "Perfect Roleplay simulation initialized. Citizens are moving independently."
+    );
+  }
+
+  render();
+  startEngine();
+}
+
+init();
+
+</script>
+
+</body>
+</html>
