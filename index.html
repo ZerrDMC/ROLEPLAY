@@ -1,1846 +1,366 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Perfect Roleplay | Oxford, Mississippi</title>
-
-<style>
-:root {
-  --bg: #0a0d12;
-  --panel: #11161e;
-  --panel2: #171e28;
-  --border: #252e3a;
-  --text: #e8edf3;
-  --muted: #8793a3;
-  --gold: #c7a66a;
-  --blue: #5d95d6;
-  --green: #52bb8b;
-  --red: #df7070;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, Arial, sans-serif;
-  min-height: 100vh;
-}
-
-button, input, select {
-  font: inherit;
-}
-
-button {
-  cursor: pointer;
-  transition: .2s;
-}
-
-button:hover {
-  filter: brightness(1.15);
-  transform: translateY(-1px);
-}
-
-/* HEADER */
-
-header {
-  height: 70px;
-  padding: 0 30px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #0d1117;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.brand {
-  font-size: 19px;
-  font-weight: 900;
-  letter-spacing: 2px;
-}
-
-.brand span {
-  color: var(--gold);
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.status {
-  color: var(--green);
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 8px #52bb8b66;
-}
-
-/* LAYOUT */
-
-.layout {
-  display: grid;
-  grid-template-columns: 225px 1fr;
-  min-height: calc(100vh - 70px);
-}
-
-.sidebar {
-  background: #0d1117;
-  border-right: 1px solid var(--border);
-  padding: 25px 15px;
-}
-
-.sidebar-title {
-  font-size: 10px;
-  color: #657181;
-  letter-spacing: 2px;
-  margin: 20px 10px 12px;
-}
-
-.nav-item {
-  padding: 12px;
-  border-radius: 8px;
-  color: #aab4c1;
-  margin-bottom: 5px;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-.nav-item.active {
-  background: #1b2634;
-  color: #d9b978;
-  border: 1px solid #29394c;
-}
-
-.nav-item:hover {
-  background: #18212c;
-}
-
-.sidebar-footer {
-  margin-top: 40px;
-  border-top: 1px solid var(--border);
-  padding: 15px 10px;
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.7;
-}
-
-main {
-  padding: 28px;
-  min-width: 0;
-  max-width: 1600px;
-  width: 100%;
-  margin: auto;
-}
-
-/* CITY HERO */
-
-.hero {
-  position: relative;
-  overflow: hidden;
-  min-height: 230px;
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  background:
-    linear-gradient(90deg, #0b1018 5%, #0b1018dd 55%, #0b101888),
-    url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1800&q=85')
-    center 52% / cover;
-  display: flex;
-  align-items: center;
-  padding: 32px;
-  margin-bottom: 25px;
-}
-
-.hero-content {
-  max-width: 600px;
-}
-
-.eyebrow {
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--gold);
-  margin-bottom: 14px;
-}
-
-.hero h1 {
-  font-size: clamp(26px, 4vw, 44px);
-  letter-spacing: 1px;
-  margin-bottom: 12px;
-}
-
-.hero p {
-  color: #aab5c3;
-  line-height: 1.6;
-  font-size: 14px;
-}
-
-.hero-tag {
-  position: absolute;
-  right: 25px;
-  bottom: 25px;
-  background: #101721dd;
-  border: 1px solid #364251;
-  padding: 10px 15px;
-  border-radius: 7px;
-  font-size: 11px;
-  color: #ccd3dd;
-}
-
-/* CARDS */
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 14px;
-  margin-bottom: 22px;
-}
-
-.card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 19px;
-}
-
-.stat-label {
-  font-size: 11px;
-  color: var(--muted);
-  letter-spacing: 1px;
-  margin-bottom: 12px;
-}
-
-.stat-value {
-  font-size: 27px;
-  font-weight: 700;
-}
-
-.stat-note {
-  color: var(--muted);
-  font-size: 11px;
-  margin-top: 9px;
-}
-
-.gold { color: var(--gold); }
-.green { color: var(--green); }
-.blue { color: var(--blue); }
-
-/* SECTIONS */
-
-.section {
-  margin-top: 25px;
-}
-
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 15px;
-  flex-wrap: wrap;
-}
-
-.section-head h2 {
-  font-size: 17px;
-}
-
-.section-head p {
-  font-size: 12px;
-  color: var(--muted);
-  margin-top: 5px;
-}
-
-.controls {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  background: #1b2634;
-  color: #dce5ef;
-  border: 1px solid #304052;
-  padding: 10px 14px;
-  border-radius: 7px;
-  font-size: 12px;
-}
-
-.btn.primary {
-  background: #c7a66a;
-  color: #11151b;
-  border-color: #c7a66a;
-  font-weight: 700;
-}
-
-.btn.danger {
-  background: #28191b;
-  border-color: #573035;
-  color: #df9292;
-}
-
-.btn.small {
-  padding: 7px 10px;
-  font-size: 11px;
-}
-
-/* CHARACTER CARDS */
-
-.character-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 13px;
-}
-
-.character {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 16px;
-  transition: .2s;
-}
-
-.character:hover {
-  border-color: #47576b;
-  transform: translateY(-2px);
-}
-
-.character-top {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.avatar {
-  width: 45px;
-  height: 45px;
-  background: #1d2b3a;
-  border: 1px solid #304254;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-}
-
-.character-name {
-  font-size: 14px;
-  font-weight: 700;
-}
-
-.character-sub {
-  color: var(--muted);
-  font-size: 11px;
-  margin-top: 5px;
-}
-
-.personality {
-  display: inline-block;
-  color: #c8a76d;
-  background: #2b251b;
-  border: 1px solid #4b3e2a;
-  border-radius: 20px;
-  padding: 4px 8px;
-  font-size: 10px;
-  margin-top: 12px;
-}
-
-.character-action {
-  font-size: 12px;
-  color: #b2bdca;
-  background: #0d1219;
-  border-radius: 7px;
-  padding: 10px;
-  margin: 12px 0;
-  line-height: 1.5;
-}
-
-.character-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.money {
-  color: var(--green);
-  font-weight: 700;
-}
-
-.needs {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-  margin-top: 12px;
-}
-
-.need {
-  background: #0d1219;
-  padding: 7px;
-  border-radius: 6px;
-  text-align: center;
-}
-
-.need small {
-  color: var(--muted);
-  display: block;
-  font-size: 9px;
-  margin-bottom: 5px;
-}
-
-.need strong {
-  font-size: 11px;
-}
-
-.character-bottom {
-  display: flex;
-  justify-content: space-between;
-  gap: 5px;
-  margin-top: 12px;
-}
-
-/* ACTIVITY */
-
-.activity-layout {
-  display: grid;
-  grid-template-columns: 1fr 310px;
-  gap: 15px;
-}
-
-.activity {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 17px;
-  min-height: 280px;
-}
-
-.activity-feed {
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  max-height: 360px;
-  overflow-y: auto;
-}
-
-.activity-item {
-  padding: 10px;
-  background: #0c1117;
-  border-radius: 7px;
-  border-left: 2px solid #34485d;
-  font-size: 12px;
-  line-height: 1.6;
-}
-
-.activity-item .time {
-  color: var(--gold);
-  font-size: 10px;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.world-card {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 11px;
-  padding: 18px;
-}
-
-.world-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 13px 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 12px;
-}
-
-.world-row:last-child {
-  border-bottom: none;
-}
-
-.world-row span {
-  color: var(--muted);
-}
-
-/* MODAL */
-
-.modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  background: #000b;
-  align-items: center;
-  justify-content: center;
-  padding: 15px;
-}
-
-.modal.show {
-  display: flex;
-}
-
-.modal-box {
-  background: #121821;
-  border: 1px solid #334151;
-  border-radius: 14px;
-  padding: 24px;
-  width: 100%;
-  max-width: 440px;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-
-.modal-box h2 {
-  margin-bottom: 18px;
-}
-
-.form-group {
-  margin-bottom: 14px;
-}
-
-.form-group label {
-  display: block;
-  font-size: 11px;
-  color: #9ba8b8;
-  margin-bottom: 7px;
-}
-
-.form-group input,
-.form-group select {
-  width: 100%;
-  background: #0b1016;
-  color: #e6edf5;
-  border: 1px solid #2d3846;
-  padding: 11px;
-  border-radius: 7px;
-  outline: none;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  border-color: var(--gold);
-}
-
-.modal-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 20px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1100px) {
-  .character-grid {
-    grid-template-columns: repeat(2, minmax(0,1fr));
-  }
-  .activity-layout {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media(max-width:750px) {
-  header {
-    padding: 0 15px;
-  }
-  .layout {
-    grid-template-columns: 1fr;
-  }
-  .sidebar {
-    display: none;
-  }
-  main {
-    padding: 15px;
-  }
-  .hero {
-    min-height: 210px;
-    padding: 20px;
-  }
-  .hero-tag {
-    display: none;
-  }
-  .stats {
-    grid-template-columns: repeat(2,1fr);
-    gap: 9px;
-  }
-  .stat-value {
-    font-size: 22px;
-  }
-  .character-grid {
-    grid-template-columns: 1fr;
-  }
-  .section-head {
-    align-items: flex-start;
-  }
-  .header-right {
-    font-size: 10px;
-  }
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111116">
+  <title>Oxford Life | Roleplay</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-
-<header>
-  <div class="brand">PERFECT <span>ROLEPLAY</span></div>
-  <div class="header-right">
-    <div class="status"><div class="dot"></div><span id="serverStatus">ONLINE</span></div>
-    <span>OXFORD, MS</span>
-  </div>
-</header>
 
 <div class="layout">
 
   <aside class="sidebar">
-    <div class="sidebar-title">CITY MANAGEMENT</div>
-    <div class="nav-item active">▦ &nbsp; Overview</div>
-    <div class="nav-item">♙ &nbsp; Citizens</div>
-    <div class="nav-item">⌂ &nbsp; City</div>
-    <div class="nav-item">⚖ &nbsp; Government</div>
-    <div class="nav-item">▣ &nbsp; Departments</div>
-    <div class="nav-item">▤ &nbsp; Businesses</div>
-    <div class="nav-item">◷ &nbsp; Activity</div>
+    <div class="brand">
+      <span class="brand-icon">O</span>
+      <div>
+        <strong>OXFORD LIFE</strong>
+        <small>REAL LIFE SIMULATION</small>
+      </div>
+    </div>
 
-    <div class="sidebar-title">SIMULATION</div>
-    <div class="nav-item active">◉ &nbsp; Autonomous AI</div>
-    <div class="nav-item">⚙ &nbsp; Settings</div>
+    <div class="menu-label">PRINCIPAL</div>
+    <button class="nav-btn active" data-page="chat">💬 <span>Conversaciones</span></button>
+    <button class="nav-btn" data-page="explore">🌎 <span>Explorar personajes</span></button>
 
-    <div class="sidebar-footer">
-      PERFECT ROLEPLAY<br>
-      Oxford, Mississippi, USA<br>
-      <span class="gold">Life simulation engine v1.0</span>
+    <div class="menu-label">PERSONALIZACIÓN</div>
+    <button class="nav-btn" data-page="profile">👤 <span>Mi personaje</span></button>
+    <button class="nav-btn" data-page="wardrobe">👕 <span>Vestuario</span></button>
+
+    <div class="menu-label">ADMINISTRACIÓN</div>
+    <button class="nav-btn" data-page="characters">🎭 <span>Mis personajes</span></button>
+    <button class="nav-btn" data-page="settings">⚙️ <span>Configuración</span></button>
+
+    <div class="sidebar-bottom">
+      <div class="user-mini">
+        <div class="avatar" id="miniAvatar">D</div>
+        <div>
+          <strong id="miniName">Mi personaje</strong>
+          <small>Tu perfil</small>
+        </div>
+      </div>
     </div>
   </aside>
 
-  <main>
+  <main class="main">
 
-    <section class="hero">
-      <div class="hero-content">
-        <div class="eyebrow">MISSISSIPPI, UNITED STATES</div>
-        <h1>YOUR LIFE. YOUR STORY.</h1>
-        <p>
-          A living city. Independent citizens. A world that keeps moving.
-          Every decision changes someone's life.
-        </p>
+    <header class="topbar">
+      <div>
+        <div class="breadcrumb">OXFORD LIFE / <span id="pageTitle">CONVERSACIONES</span></div>
+        <div class="top-location" id="locationHeader">Oxford, Mississippi, Estados Unidos</div>
       </div>
-      <div class="hero-tag">◉ &nbsp; AUTONOMOUS CITY SIMULATION</div>
+      <div class="top-right">
+        <span class="connection" id="connectionStatus">IA no conectada</span>
+      </div>
+    </header>
+
+    <!-- CONVERSACIONES -->
+    <section class="page active" id="page-chat">
+      <div class="chat-layout">
+
+        <div class="conversation-list">
+          <div class="section-heading">
+            <h2>Chats</h2>
+            <button class="icon-btn" id="newChatBtn" title="Nuevo chat">＋</button>
+          </div>
+
+          <div id="conversationList"></div>
+        </div>
+
+        <div class="chat-area">
+
+          <div class="chat-header">
+            <div class="chat-character-avatar" id="chatAvatar">🌎</div>
+            <div class="chat-character-info">
+              <strong id="chatName">Simulación</strong>
+              <small id="chatDescription">Comenzá una conversación</small>
+            </div>
+            <button class="icon-btn" id="chatInfoBtn">ⓘ</button>
+          </div>
+
+          <div class="messages" id="messages">
+            <div class="empty-state">
+              <div>💬</div>
+              <h2>Tu historia comienza aquí</h2>
+              <p>Elegí un personaje para comenzar a interactuar.</p>
+            </div>
+          </div>
+
+          <div class="typing-indicator hidden" id="typingIndicator">
+            Esperando respuesta...
+          </div>
+
+          <div class="composer">
+            <textarea id="messageInput"
+              placeholder="Escribí una acción o un diálogo..."
+              rows="1"></textarea>
+            <button id="sendBtn" class="send-btn">➤</button>
+          </div>
+
+          <div class="composer-hint">
+            Podés escribir diálogos, acciones y acontecimientos.
+            <span>Enter para enviar · Shift + Enter para nueva línea</span>
+          </div>
+
+        </div>
+      </div>
     </section>
 
-    <section class="stats">
-      <div class="card">
-        <div class="stat-label">TOTAL CITIZENS</div>
-        <div class="stat-value" id="totalCitizens">0</div>
-        <div class="stat-note">Registered residents</div>
-      </div>
+    <!-- EXPLORAR -->
+    <section class="page" id="page-explore">
+      <div class="page-content">
+        <div class="page-heading">
+          <div>
+            <h1>Explorar personajes</h1>
+            <p>Conocé a los habitantes de Oxford.</p>
+          </div>
+          <button class="primary-btn" id="createCharacterExplore">＋ Crear personaje</button>
+        </div>
 
-      <div class="card">
-        <div class="stat-label">EMPLOYED</div>
-        <div class="stat-value green" id="employed">0</div>
-        <div class="stat-note">Citizens with a job</div>
-      </div>
+        <input class="search-input" id="searchCharacters"
+          placeholder="Buscar personajes...">
 
-      <div class="card">
-        <div class="stat-label">CITY TREASURY</div>
-        <div class="stat-value gold" id="treasury">$0</div>
-        <div class="stat-note">Public funds</div>
-      </div>
-
-      <div class="card">
-        <div class="stat-label">SIMULATION TIME</div>
-        <div class="stat-value blue" id="simTime">08:00</div>
-        <div class="stat-note" id="simDay">Monday · Day 1</div>
+        <div class="character-grid" id="exploreGrid"></div>
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <h2>Citizen Management</h2>
-          <p>Independent citizens living their own lives.</p>
-        </div>
+    <!-- PERFIL -->
+    <section class="page" id="page-profile">
+      <div class="page-content">
+        <h1>Mi personaje</h1>
+        <p>Configurá tu identidad dentro de la simulación.</p>
 
-        <div class="controls">
-          <button class="btn" onclick="toggleSimulation()" id="pauseBtn">Ⅱ Pause</button>
-          <button class="btn" onclick="changeSpeed()">⏩ Speed: x1</button>
-          <button class="btn" onclick="generateCitizens(5)">＋ 5 Citizens</button>
-          <button class="btn primary" onclick="openModal()">＋ Create Citizen</button>
+        <div class="form-card">
+          <div class="field">
+            <label>Nombre completo</label>
+            <input id="profileName" placeholder="Tu nombre">
+          </div>
+
+          <div class="field">
+            <label>Edad</label>
+            <input id="profileAge" type="number" min="1" max="120">
+          </div>
+
+          <div class="field">
+            <label>Género</label>
+            <select id="profileGender">
+              <option value="">Sin especificar</option>
+              <option>Masculino</option>
+              <option>Femenino</option>
+              <option>No binario</option>
+              <option>Otro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Descripción física</label>
+            <textarea id="profileAppearance"
+              placeholder="Altura, cabello, ojos, rasgos físicos..."></textarea>
+          </div>
+
+          <div class="field">
+            <label>Personalidad</label>
+            <textarea id="profilePersonality"
+              placeholder="Cómo se comporta tu personaje..."></textarea>
+          </div>
+
+          <div class="field">
+            <label>Historia personal</label>
+            <textarea id="profileHistory"
+              placeholder="Familia, pasado, estudios, trabajo..."></textarea>
+          </div>
+
+          <button class="primary-btn" id="saveProfile">Guardar personaje</button>
         </div>
       </div>
-
-      <div class="character-grid" id="characterGrid"></div>
     </section>
 
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <h2>City Activity</h2>
-          <p>Actions and events happening around Oxford.</p>
+    <!-- VESTUARIO -->
+    <section class="page" id="page-wardrobe">
+      <div class="page-content">
+        <h1>Vestuario</h1>
+        <p>Elegí la ropa y los accesorios de tu personaje.</p>
+
+        <div class="form-card">
+          <h3>Parte superior</h3>
+          <div class="field">
+            <label>Prenda</label>
+            <select id="clothingTop">
+              <option>Remera</option>
+              <option>Camisa</option>
+              <option>Buzo</option>
+              <option>Campera</option>
+              <option>Campera de cuero</option>
+              <option>Sudadera</option>
+              <option>Traje</option>
+              <option>Top</option>
+              <option>Vestido</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Color</label>
+            <input id="clothingTopColor" placeholder="Negro">
+          </div>
+
+          <h3>Parte inferior</h3>
+          <div class="field">
+            <label>Prenda</label>
+            <select id="clothingBottom">
+              <option>Jeans</option>
+              <option>Pantalón formal</option>
+              <option>Pantalón deportivo</option>
+              <option>Shorts</option>
+              <option>Pollera</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Color</label>
+            <input id="clothingBottomColor" placeholder="Azul oscuro">
+          </div>
+
+          <h3>Calzado</h3>
+          <div class="field">
+            <select id="clothingShoes">
+              <option>Zapatillas</option>
+              <option>Botas</option>
+              <option>Zapatos formales</option>
+              <option>Sandalias</option>
+            </select>
+          </div>
+
+          <h3>Accesorios</h3>
+          <div class="field">
+            <label>Accesorios (separados por comas)</label>
+            <input id="clothingAccessories"
+              placeholder="Reloj, cadena, anteojos...">
+          </div>
+
+          <div class="field">
+            <label>Otros detalles</label>
+            <textarea id="clothingOther"
+              placeholder="Peinado, maquillaje, perfume, etc."></textarea>
+          </div>
+
+          <button class="primary-btn" id="saveWardrobe">Guardar vestuario</button>
         </div>
       </div>
+    </section>
 
-      <div class="activity-layout">
-
-        <div class="activity">
-          <div class="activity-feed" id="activityFeed"></div>
+    <!-- PERSONAJES -->
+    <section class="page" id="page-characters">
+      <div class="page-content">
+        <div class="page-heading">
+          <div>
+            <h1>Mis personajes</h1>
+            <p>Administrá los personajes de tu mundo.</p>
+          </div>
+          <button class="primary-btn" id="createCharacterBtn">＋ Crear</button>
         </div>
 
-        <div class="world-card">
-          <h3 style="font-size:14px;margin-bottom:10px;">World Information</h3>
+        <div class="character-grid" id="myCharactersGrid"></div>
+      </div>
+    </section>
 
-          <div class="world-row">
-            <span>Location</span>
-            <strong>Oxford, Mississippi</strong>
+    <!-- CONFIGURACIÓN -->
+    <section class="page" id="page-settings">
+      <div class="page-content">
+        <h1>Configuración</h1>
+
+        <div class="form-card">
+          <h3>Mundo de simulación</h3>
+
+          <div class="field">
+            <label>Ubicación</label>
+            <input id="worldLocation">
           </div>
 
-          <div class="world-row">
-            <span>Population</span>
-            <strong id="worldPopulation">0</strong>
+          <div class="field">
+            <label>Descripción del mundo</label>
+            <textarea id="worldDescription"></textarea>
           </div>
 
-          <div class="world-row">
-            <span>Simulation</span>
-            <strong class="green" id="worldStatus">Running</strong>
-          </div>
+          <button class="primary-btn" id="saveWorld">Guardar configuración</button>
 
-          <div class="world-row">
-            <span>Speed</span>
-            <strong id="speedLabel">1x</strong>
-          </div>
+          <hr>
 
-          <div class="world-row">
-            <span>Weather</span>
-            <strong id="weather">Sunny</strong>
-          </div>
-
-          <button class="btn danger" style="width:100%;margin-top:15px"
-            onclick="resetWorld()">Reset Simulation</button>
+          <h3>Datos locales</h3>
+          <p>Los datos de esta versión se guardan en el navegador.</p>
+          <button class="danger-btn" id="deleteData">Borrar todos los datos</button>
         </div>
-
       </div>
     </section>
 
   </main>
 </div>
 
-<!-- CREATE CITIZEN MODAL -->
-
-<div class="modal" id="citizenModal">
+<!-- MODAL CREAR / EDITAR PERSONAJE -->
+<div class="modal hidden" id="characterModal">
   <div class="modal-box">
-    <h2>Create Citizen</h2>
-
-    <div class="form-group">
-      <label>First name</label>
-      <input id="firstName" placeholder="John">
+    <div class="modal-header">
+      <h2 id="modalTitle">Crear personaje</h2>
+      <button class="icon-btn" id="closeModal">✕</button>
     </div>
 
-    <div class="form-group">
-      <label>Last name</label>
-      <input id="lastName" placeholder="Smith">
-    </div>
+    <form id="characterForm">
+      <input type="hidden" id="characterId">
 
-    <div class="form-group">
-      <label>Age</label>
-      <input id="age" type="number" value="25" min="18" max="90">
-    </div>
+      <div class="field">
+        <label>Nombre</label>
+        <input id="characterName" required>
+      </div>
 
-    <div class="form-group">
-      <label>Occupation</label>
-      <select id="occupation"></select>
-    </div>
+      <div class="field">
+        <label>Edad</label>
+        <input id="characterAge" type="number" min="1" max="120" required>
+      </div>
 
-    <div class="form-group">
-      <label>Personality</label>
-      <select id="personality"></select>
-    </div>
+      <div class="field">
+        <label>Género</label>
+        <input id="characterGender" placeholder="Opcional">
+      </div>
 
-    <div class="modal-actions">
-      <button class="btn primary" onclick="createManualCitizen()" style="flex:1">
-        Create Citizen
-      </button>
-      <button class="btn" onclick="closeModal()">Cancel</button>
-    </div>
+      <div class="field">
+        <label>Personalidad</label>
+        <textarea id="characterPersonality" required></textarea>
+      </div>
+
+      <div class="field">
+        <label>Descripción física</label>
+        <textarea id="characterAppearance"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Historia personal</label>
+        <textarea id="characterHistory"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Ocupación</label>
+        <input id="characterOccupation">
+      </div>
+
+      <div class="field">
+        <label>Primer mensaje</label>
+        <textarea id="characterGreeting"></textarea>
+      </div>
+
+      <div class="field">
+        <label>Avatar (emoji)</label>
+        <input id="characterAvatar" value="👤">
+      </div>
+
+      <button class="primary-btn full-width" type="submit">Guardar personaje</button>
+    </form>
   </div>
 </div>
 
-<script>
-
-/* ========================================
-   PERFECT ROLEPLAY
-   AUTONOMOUS CITIZEN SIMULATION
-======================================== */
-
-const STORAGE_KEY = "perfect_roleplay_oxford_v1";
-
-const firstNames = [
-  "James","John","Michael","William","David","Robert","Daniel",
-  "Matthew","Christopher","Andrew","Joseph","Ryan","Tyler","Brandon",
-  "Jacob","Ethan","Noah","Logan","Lucas","Mason","Alexander",
-  "Benjamin","Samuel","Henry","Jack","Owen","Caleb","Nathan",
-  "Liam","Elijah","Aiden","Connor","Dylan","Hunter","Carter",
-  "Emily","Olivia","Sophia","Emma","Ava","Isabella","Mia",
-  "Charlotte","Amelia","Harper","Abigail","Elizabeth","Grace",
-  "Madison","Chloe","Lily","Ella","Victoria","Hannah","Natalie",
-  "Samantha","Ashley","Jessica","Lauren","Sarah","Anna","Claire"
-];
-
-const lastNames = [
-  "Smith","Johnson","Williams","Brown","Jones","Garcia","Miller",
-  "Davis","Wilson","Anderson","Taylor","Thomas","Moore","Martin",
-  "Jackson","White","Harris","Clark","Lewis","Robinson","Walker",
-  "Young","Allen","King","Wright","Scott","Green","Baker",
-  "Adams","Nelson","Hill","Campbell","Mitchell","Roberts",
-  "Carter","Phillips","Evans","Turner","Parker","Collins",
-  "Edwards","Stewart","Morris","Morgan","Reed","Cook","Bell"
-];
-
-const occupations = [
-  {name:"Unemployed", salary:0},
-  {name:"Barista", salary:130},
-  {name:"Waiter", salary:145},
-  {name:"Retail Worker", salary:150},
-  {name:"Mechanic", salary:220},
-  {name:"Construction Worker", salary:210},
-  {name:"Taxi Driver", salary:170},
-  {name:"Police Officer", salary:280},
-  {name:"Paramedic", salary:260},
-  {name:"Doctor", salary:420},
-  {name:"Teacher", salary:250},
-  {name:"Business Owner", salary:320},
-  {name:"Office Worker", salary:200},
-  {name:"Delivery Driver", salary:160},
-  {name:"Lawyer", salary:400}
-];
-
-const personalities = [
-  {
-    name:"Friendly",
-    social:80,
-    work:65,
-    risk:25,
-    description:"Likes meeting people and helping others."
-  },
-  {
-    name:"Introverted",
-    social:25,
-    work:70,
-    risk:15,
-    description:"Quiet, independent and prefers being alone."
-  },
-  {
-    name:"Ambitious",
-    social:55,
-    work:95,
-    risk:55,
-    description:"Focused on success, money and career growth."
-  },
-  {
-    name:"Lazy",
-    social:50,
-    work:25,
-    risk:35,
-    description:"Avoids effort and prefers relaxation."
-  },
-  {
-    name:"Reckless",
-    social:75,
-    work:45,
-    risk:95,
-    description:"Impulsive and always looking for excitement."
-  },
-  {
-    name:"Calm",
-    social:50,
-    work:65,
-    risk:10,
-    description:"Patient, balanced and rarely gets angry."
-  },
-  {
-    name:"Aggressive",
-    social:35,
-    work:60,
-    risk:80,
-    description:"Short temper and confrontational attitude."
-  },
-  {
-    name:"Intelligent",
-    social:60,
-    work:85,
-    risk:30,
-    description:"Analytical, thoughtful and strategic."
-  },
-  {
-    name:"Romantic",
-    social:85,
-    work:50,
-    risk:35,
-    description:"Values relationships and emotional connection."
-  },
-  {
-    name:"Greedy",
-    social:45,
-    work:90,
-    risk:65,
-    description:"Prioritizes wealth and personal gain."
-  }
-];
-
-const locations = [
-  "Downtown Oxford",
-  "Oxford Square",
-  "Residential District",
-  "University Area",
-  "Highway",
-  "Coffee Shop",
-  "Mechanic Shop",
-  "City Hall",
-  "Hospital",
-  "Police Department",
-  "Grocery Store",
-  "Park"
-];
-
-const emojis = {
-  "Unemployed":"🧍",
-  "Barista":"☕",
-  "Waiter":"🍽️",
-  "Retail Worker":"🛍️",
-  "Mechanic":"🔧",
-  "Construction Worker":"👷",
-  "Taxi Driver":"🚕",
-  "Police Officer":"👮",
-  "Paramedic":"🚑",
-  "Doctor":"🩺",
-  "Teacher":"📚",
-  "Business Owner":"🏪",
-  "Office Worker":"💼",
-  "Delivery Driver":"📦",
-  "Lawyer":"⚖️"
-};
-
-let citizens = [];
-let treasury = 125000;
-let simMinutes = 8 * 60;
-let simDay = 1;
-let speed = 1;
-let running = true;
-let tickCounter = 0;
-let activityLog = [];
-let weather = "Sunny";
-let interval = null;
-
-/* UTILITIES */
-
-function rand(min,max) {
-  return Math.floor(Math.random()*(max-min+1))+min;
-}
-
-function pick(array) {
-  return array[Math.floor(Math.random()*array.length)];
-}
-
-function clamp(value,min=0,max=100) {
-  return Math.max(min,Math.min(max,value));
-}
-
-function money(value) {
-  return "$" + Math.round(value).toLocaleString("en-US");
-}
-
-function randomName() {
-  return pick(firstNames)+" "+pick(lastNames);
-}
-
-function randomPersonality() {
-  return pick(personalities);
-}
-
-function randomOccupation() {
-  return pick(occupations);
-}
-
-/* CITIZEN GENERATION */
-
-function createCitizen(data={}) {
-
-  const personality = data.personality || randomPersonality();
-  const occupation = data.occupation || randomOccupation();
-
-  return {
-    id: Date.now() + Math.random(),
-
-    name: data.name || randomName(),
-    age: data.age || rand(18,65),
-
-    occupation: occupation.name,
-    salary: occupation.salary,
-
-    personality: personality.name,
-    personalityDescription: personality.description,
-    social: personality.social,
-    workEthic: personality.work,
-    risk: personality.risk,
-
-    money: data.money ?? rand(400,6500),
-
-    hunger: rand(35,90),
-    energy: rand(35,100),
-    happiness: rand(40,90),
-
-    location: pick(locations),
-    action: "Starting their day",
-    goal: generateGoal(occupation,personality),
-
-    relationships: [],
-    employed: occupation.salary > 0,
-
-    alive: true,
-    createdAt: Date.now(),
-    workProgress: 0,
-    history: []
-  };
-}
-
-function generateGoal(occupation,personality) {
-
-  if(personality.name === "Ambitious")
-    return pick([
-      "Get promoted",
-      "Save money for a car",
-      "Become successful",
-      "Buy a house"
-    ]);
-
-  if(personality.name === "Greedy")
-    return pick([
-      "Become wealthy",
-      "Earn more money",
-      "Buy a business"
-    ]);
-
-  if(personality.name === "Romantic")
-    return pick([
-      "Find a partner",
-      "Build a family",
-      "Meet new people"
-    ]);
-
-  if(occupation.name === "Unemployed")
-    return "Find a job";
-
-  return pick([
-    "Save money",
-    "Improve their life",
-    "Make new friends",
-    "Find a better job",
-    "Buy a car"
-  ]);
-}
-
-/* AUTO POPULATION */
-
-function generateCitizens(count) {
-
-  for(let i=0;i<count;i++) {
-    const citizen = createCitizen();
-    citizens.push(citizen);
-
-    addLog(
-      "👤",
-      citizen.name+" moved to Oxford. They are a "+
-      citizen.age+" year old "+citizen.occupation+"."
-    );
-  }
-
-  render();
-  saveGame();
-}
-
-/* MANUAL CITIZEN CREATION */
-
-function openModal() {
-
-  document.getElementById("citizenModal").classList.add("show");
-
-  document.getElementById("occupation").innerHTML =
-    occupations.map(o =>
-      `<option value="${o.name}">${o.name}</option>`
-    ).join("");
-
-  document.getElementById("personality").innerHTML =
-    personalities.map(p =>
-      `<option value="${p.name}">${p.name}</option>`
-    ).join("");
-}
-
-function closeModal() {
-  document.getElementById("citizenModal").classList.remove("show");
-}
-
-function createManualCitizen() {
-
-  const first = document.getElementById("firstName").value.trim();
-  const last = document.getElementById("lastName").value.trim();
-
-  if(!first || !last) {
-    alert("Enter a first and last name.");
-    return;
-  }
-
-  const age = Number(document.getElementById("age").value);
-
-  if(age < 18 || age > 90) {
-    alert("Age must be between 18 and 90.");
-    return;
-  }
-
-  const occName = document.getElementById("occupation").value;
-  const perName = document.getElementById("personality").value;
-
-  const occupation = occupations.find(o=>o.name===occName);
-  const personality = personalities.find(p=>p.name===perName);
-
-  const citizen = createCitizen({
-    name:first+" "+last,
-    age,
-    occupation,
-    personality,
-    money:rand(500,4000)
-  });
-
-  citizens.unshift(citizen);
-
-  addLog("👤",citizen.name+" has been registered as a new Oxford citizen.");
-
-  closeModal();
-  render();
-  saveGame();
-
-  document.getElementById("firstName").value="";
-  document.getElementById("lastName").value="";
-}
-
-/* AUTONOMOUS SIMULATION */
-
-function simulateCitizen(c) {
-
-  if(!c.alive) return;
-
-  // Natural needs
-  c.hunger = clamp(c.hunger-1.5);
-  c.energy = clamp(c.energy-0.8);
-  c.happiness = clamp(c.happiness-0.1);
-
-  // Priority: basic needs
-  if(c.hunger < 22) {
-    eat(c);
-    return;
-  }
-
-  if(c.energy < 18) {
-    sleep(c);
-    return;
-  }
-
-  // Personality decision
-  const roll = Math.random()*100;
-
-  if(c.personality === "Lazy") {
-    if(roll < 55) {
-      relax(c);
-      return;
-    }
-  }
-
-  if(c.personality === "Ambitious") {
-    if(roll < 75) {
-      work(c);
-      return;
-    }
-  }
-
-  if(c.personality === "Greedy") {
-    if(roll < 80) {
-      work(c);
-      return;
-    }
-  }
-
-  if(c.personality === "Introverted") {
-    if(roll < 55) {
-      relax(c);
-      return;
-    }
-  }
-
-  if(c.personality === "Friendly" ||
-     c.personality === "Romantic") {
-    if(roll < 60) {
-      socialize(c);
-      return;
-    }
-  }
-
-  if(c.personality === "Reckless") {
-    if(roll < 30) {
-      adventure(c);
-      return;
-    }
-  }
-
-  // Normal daily life
-  if(c.employed && roll < 55) {
-    work(c);
-    return;
-  }
-
-  if(roll < 75) {
-    socialize(c);
-    return;
-  }
-
-  if(roll < 90) {
-    relax(c);
-    return;
-  }
-
-  explore(c);
-}
-
-/* ACTIONS */
-
-function eat(c) {
-
-  if(c.money >= 15) {
-    c.money -= 15;
-    c.hunger = clamp(c.hunger+45);
-    c.happiness = clamp(c.happiness+3);
-    c.location = pick(["Coffee Shop","Grocery Store","Downtown Oxford"]);
-    c.action = "Buying food and eating";
-  } else {
-    c.hunger = clamp(c.hunger+15);
-    c.action = "Looking for affordable food";
-  }
-
-  addLog("🍔",c.name+" went to get something to eat.");
-}
-
-function sleep(c) {
-
-  c.energy = clamp(c.energy+35);
-  c.location = "Residential District";
-  c.action = "Resting at home";
-
-  addLog("🛌",c.name+" is resting at home.");
-}
-
-function work(c) {
-
-  if(!c.employed) {
-    c.action = "Searching for a job";
-    c.location = "Downtown Oxford";
-
-    if(Math.random()<0.25) {
-      const job = randomOccupation();
-
-      if(job.salary > 0) {
-        c.occupation = job.name;
-        c.salary = job.salary;
-        c.employed = true;
-
-        addLog("💼",c.name+" found a job as a "+job.name+".");
-      }
-    }
-    return;
-  }
-
-  c.workProgress++;
-
-  c.location = getWorkLocation(c);
-  c.action = "Working as "+c.occupation;
-
-  if(c.workProgress >= 3) {
-
-    const income = Math.round(c.salary*(c.workEthic/100)*0.4);
-
-    c.money += income;
-    c.happiness = clamp(c.happiness+2);
-    c.workProgress = 0;
-
-    addLog("💵",c.name+" earned "+money(income)+" working as "+c.occupation+".");
-  }
-}
-
-function getWorkLocation(c) {
-
-  if(c.occupation === "Police Officer")
-    return "Police Department";
-
-  if(c.occupation === "Doctor" || c.occupation === "Paramedic")
-    return "Hospital";
-
-  if(c.occupation === "Mechanic")
-    return "Mechanic Shop";
-
-  if(c.occupation === "Teacher")
-    return "University Area";
-
-  if(c.occupation === "Barista" || c.occupation === "Waiter")
-    return "Coffee Shop";
-
-  if(c.occupation === "Construction Worker")
-    return "Residential District";
-
-  if(c.occupation === "Business Owner")
-    return "Downtown Oxford";
-
-  return "Downtown Oxford";
-}
-
-function socialize(c) {
-
-  const others = citizens.filter(x =>
-    x.id !== c.id &&
-    x.alive &&
-    x.location === c.location
-  );
-
-  if(others.length===0) {
-    c.location = pick([
-      "Downtown Oxford",
-      "Oxford Square",
-      "Coffee Shop",
-      "Park"
-    ]);
-    c.action = "Going out to meet people";
-    return;
-  }
-
-  const other = pick(others);
-
-  const bond = rand(1,10);
-
-  c.happiness = clamp(c.happiness+rand(2,6));
-
-  other.happiness = clamp(other.happiness+rand(1,4));
-
-  let relationship = c.relationships.find(r=>r.id===other.id);
-
-  if(!relationship) {
-    relationship = {
-      id:other.id,
-      name:other.name,
-      level:0
-    };
-
-    c.relationships.push(relationship);
-  }
-
-  relationship.level += bond;
-
-  c.action = "Talking with "+other.name;
-
-  addLog("💬",
-    c.name+" is spending time with "+other.name+"."
-  );
-
-  if(relationship.level > 40 &&
-     !c.relationships.some(r=>r.bestFriend)) {
-
-    relationship.bestFriend = true;
-
-    addLog("🤝",
-      c.name+" and "+other.name+" are becoming close friends."
-    );
-  }
-
-  // Romantic personalities may become interested in each other
-  if(c.personality==="Romantic" &&
-     other.personality==="Romantic" &&
-     Math.random()<0.08) {
-
-    addLog("❤️",
-      c.name+" seems to be developing feelings for "+other.name+"."
-    );
-  }
-}
-
-function relax(c) {
-
-  c.energy = clamp(c.energy+rand(10,25));
-  c.happiness = clamp(c.happiness+rand(2,8));
-  c.location = pick([
-    "Park",
-    "Residential District",
-    "Oxford Square"
-  ]);
-  c.action = "Relaxing and enjoying free time";
-}
-
-function explore(c) {
-
-  c.location = pick(locations);
-  c.action = "Exploring Oxford";
-
-  c.happiness = clamp(c.happiness+1);
-
-  if(Math.random()<0.2) {
-    addLog("🚶",c.name+" explored "+c.location+".");
-  }
-}
-
-function adventure(c) {
-
-  c.location = pick([
-    "Highway",
-    "Downtown Oxford",
-    "Oxford Square"
-  ]);
-
-  c.action = "Looking for adventure";
-
-  if(Math.random()<0.15) {
-    const loss = rand(10,100);
-    c.money = Math.max(0,c.money-loss);
-
-    addLog("⚠️",
-      c.name+" had an unfortunate experience and lost "+money(loss)+"."
-    );
-  } else {
-    c.happiness = clamp(c.happiness+rand(1,8));
-  }
-}
-
-/* WORLD CLOCK */
-
-function advanceTime() {
-
-  simMinutes += 10;
-
-  if(simMinutes >= 24*60) {
-    simMinutes = 0;
-    simDay++;
-    addLog("🌅","A new day begins in Oxford, Mississippi.");
-  }
-
-  tickCounter++;
-
-  // Change weather occasionally
-  if(tickCounter % 50 === 0) {
-    weather = pick(["Sunny","Cloudy","Rainy","Clear"]);
-  }
-
-  // Simulate a few citizens every tick
-  if(citizens.length > 0) {
-
-    const amount = Math.min(
-      citizens.length,
-      Math.max(1,Math.ceil(citizens.length*0.20))
-    );
-
-    for(let i=0;i<amount;i++) {
-      const c = pick(citizens);
-      simulateCitizen(c);
-    }
-  }
-
-  // City costs and taxes
-  if(tickCounter % 20 === 0) {
-    const tax = citizens.length*5;
-    treasury += tax;
-  }
-
-  render();
-  saveGame();
-}
-
-/* TIME CONTROLS */
-
-function toggleSimulation() {
-
-  running = !running;
-
-  document.getElementById("pauseBtn").innerText =
-    running ? "Ⅱ Pause" : "▶ Resume";
-
-  document.getElementById("worldStatus").innerText =
-    running ? "Running" : "Paused";
-
-  document.getElementById("serverStatus").innerText =
-    running ? "ONLINE" : "PAUSED";
-}
-
-const speeds = [1,2,4,8];
-
-function changeSpeed() {
-
-  const index = speeds.indexOf(speed);
-  speed = speeds[(index+1)%speeds.length];
-
-  document.getElementById("speedLabel").innerText = speed+"x";
-
-  document.querySelector('[onclick="changeSpeed()"]').innerText =
-    "⏩ Speed: x"+speed;
-}
-
-/* ACTIVITY */
-
-function addLog(icon,text) {
-
-  const h = getTime();
-
-  activityLog.unshift({
-    icon,
-    text,
-    time:h
-  });
-
-  activityLog = activityLog.slice(0,60);
-}
-
-function getTime() {
-
-  const hours = Math.floor(simMinutes/60);
-  const mins = simMinutes%60;
-
-  return String(hours).padStart(2,"0")+":"+
-         String(mins).padStart(2,"0");
-}
-
-/* RENDER */
-
-function render() {
-
-  renderStats();
-  renderCitizens();
-  renderActivity();
-}
-
-function renderStats() {
-
-  document.getElementById("totalCitizens").innerText =
-    citizens.length;
-
-  document.getElementById("employed").innerText =
-    citizens.filter(c=>c.employed).length;
-
-  document.getElementById("treasury").innerText =
-    money(treasury);
-
-  document.getElementById("simTime").innerText =
-    getTime();
-
-  document.getElementById("simDay").innerText =
-    "Day "+simDay+" · Oxford, MS";
-
-  document.getElementById("worldPopulation").innerText =
-    citizens.length;
-
-  document.getElementById("weather").innerText =
-    weather;
-}
-
-function renderCitizens() {
-
-  const grid = document.getElementById("characterGrid");
-
-  if(citizens.length===0) {
-    grid.innerHTML =
-      "<div class='card'>No citizens yet.</div>";
-    return;
-  }
-
-  grid.innerHTML = citizens.slice(0,100).map(c=>`
-
-    <div class="character">
-
-      <div class="character-top">
-        <div class="avatar">${emojis[c.occupation]||"👤"}</div>
-
-        <div>
-          <div class="character-name">${escapeHTML(c.name)}</div>
-          <div class="character-sub">
-            ${c.age} years old · ${escapeHTML(c.occupation)}
-          </div>
-        </div>
-      </div>
-
-      <div class="personality">
-        ${escapeHTML(c.personality)}
-      </div>
-
-      <div class="character-action">
-        <strong>Current activity:</strong><br>
-        ${escapeHTML(c.action)}
-      </div>
-
-      <div class="character-footer">
-        <span>📍 ${escapeHTML(c.location)}</span>
-        <span class="money">${money(c.money)}</span>
-      </div>
-
-      <div class="needs">
-
-        <div class="need">
-          <small>HUNGER</small>
-          <strong>${Math.round(c.hunger)}%</strong>
-        </div>
-
-        <div class="need">
-          <small>ENERGY</small>
-          <strong>${Math.round(c.energy)}%</strong>
-        </div>
-
-        <div class="need">
-          <small>HAPPINESS</small>
-          <strong>${Math.round(c.happiness)}%</strong>
-        </div>
-
-      </div>
-
-      <div class="character-bottom">
-        <button class="btn small" onclick="inspectCitizen('${c.id}')">
-          View Profile
-        </button>
-
-        <button class="btn small danger" onclick="deleteCitizen('${c.id}')">
-          Remove
-        </button>
-      </div>
-
-    </div>
-
-  `).join("");
-}
-
-function renderActivity() {
-
-  const feed = document.getElementById("activityFeed");
-
-  if(activityLog.length===0) {
-    feed.innerHTML =
-      "<div class='activity-item'>Waiting for city activity...</div>";
-    return;
-  }
-
-  feed.innerHTML = activityLog.map(a=>`
-
-    <div class="activity-item">
-      <span class="time">${a.time} · Oxford, MS</span>
-      ${a.icon} ${escapeHTML(a.text)}
-    </div>
-
-  `).join("");
-}
-
-/* CHARACTER MANAGEMENT */
-
-function inspectCitizen(id) {
-
-  const c = citizens.find(x=>String(x.id)===String(id));
-
-  if(!c) return;
-
-  const friends = c.relationships
-    .map(r=>r.name+" ("+r.level+")")
-    .join("\n");
-
-  alert(
-`CITIZEN PROFILE
-
-Name: ${c.name}
-Age: ${c.age}
-Occupation: ${c.occupation}
-Personality: ${c.personality}
-
-Personality description:
-${c.personalityDescription}
-
-Goal:
-${c.goal}
-
-Location:
-${c.location}
-
-Current action:
-${c.action}
-
-Money:
-${money(c.money)}
-
-Hunger: ${Math.round(c.hunger)}%
-Energy: ${Math.round(c.energy)}%
-Happiness: ${Math.round(c.happiness)}%
-
-Relationships:
-${friends||"No relationships yet."}`
-  );
-}
-
-function deleteCitizen(id) {
-
-  const c = citizens.find(x=>String(x.id)===String(id));
-
-  if(!c) return;
-
-  if(!confirm("Remove "+c.name+" from the city?"))
-    return;
-
-  citizens = citizens.filter(x=>String(x.id)!==String(id));
-
-  addLog("📋",c.name+" has left Oxford.");
-
-  render();
-  saveGame();
-}
-
-/* RESET */
-
-function resetWorld() {
-
-  if(!confirm("Reset the entire city simulation?"))
-    return;
-
-  citizens = [];
-  treasury = 125000;
-  simMinutes = 8*60;
-  simDay = 1;
-  tickCounter = 0;
-  activityLog = [];
-
-  generateCitizens(20);
-
-  addLog("🏙️","Oxford simulation has been restarted.");
-
-  saveGame();
-}
-
-/* SECURITY */
-
-function escapeHTML(value) {
-
-  return String(value).replace(/[&<>"']/g, char => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#039;"
-  }[char]));
-}
-
-/* SAVE / LOAD */
-
-function saveGame() {
-
-  const data = {
-    citizens,
-    treasury,
-    simMinutes,
-    simDay,
-    speed,
-    running,
-    tickCounter,
-    activityLog,
-    weather
-  };
-
-  try {
-    localStorage.setItem(STORAGE_KEY,JSON.stringify(data));
-  } catch(e) {
-    console.warn("Save error",e);
-  }
-}
-
-function loadGame() {
-
-  try {
-
-    const raw = localStorage.getItem(STORAGE_KEY);
-
-    if(!raw) return false;
-
-    const data = JSON.parse(raw);
-
-    citizens = data.citizens || [];
-    treasury = data.treasury ?? 125000;
-    simMinutes = data.simMinutes ?? 480;
-    simDay = data.simDay ?? 1;
-    speed = data.speed ?? 1;
-    running = data.running ?? true;
-    tickCounter = data.tickCounter ?? 0;
-    activityLog = data.activityLog || [];
-    weather = data.weather || "Sunny";
-
-    return true;
-
-  } catch(e) {
-
-    console.error("Load error",e);
-    return false;
-  }
-}
-
-/* ENGINE LOOP */
-
-function engine() {
-
-  if(running) {
-
-    // Speed changes how many simulation ticks pass
-    for(let i=0;i<speed;i++) {
-      advanceTime();
-    }
-  }
-}
-
-function startEngine() {
-
-  if(interval) clearInterval(interval);
-
-  interval = setInterval(engine,1500);
-}
-
-/* INITIALIZATION */
-
-function init() {
-
-  const saved = loadGame();
-
-  if(!saved || citizens.length===0) {
-
-    citizens = [];
-
-    generateCitizens(20);
-
-    addLog("🏙️",
-      "Perfect Roleplay simulation initialized. Citizens are moving independently."
-    );
-  }
-
-  render();
-  startEngine();
-}
-
-init();
-
-</script>
+<script src="api.js"></script>
+<script src="app.js"></script>
 
 </body>
-</html>
+  </html>
+          
