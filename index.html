@@ -1,0 +1,1034 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfect Roleplay | Oxford, Mississippi</title>
+
+<style>
+:root {
+  --bg: #0a0d12;
+  --panel: #11161e;
+  --panel2: #171e28;
+  --border: #252e3a;
+  --text: #e8edf3;
+  --muted: #8793a3;
+  --gold: #c7a66a;
+  --blue: #5d95d6;
+  --green: #52bb8b;
+  --red: #df7070;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, Arial, sans-serif;
+  min-height: 100vh;
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+/* HEADER */
+
+header {
+  height: 70px;
+  padding: 0 30px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d1117;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  font-size: 19px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.brand span {
+  color: var(--gold);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.status {
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 8px #52bb8b66;
+}
+
+/* LAYOUT */
+
+.layout {
+  display: grid;
+  grid-template-columns: 225px 1fr;
+  min-height: calc(100vh - 70px);
+}
+
+.sidebar {
+  background: #0d1117;
+  border-right: 1px solid var(--border);
+  padding: 25px 15px;
+}
+
+.sidebar-title {
+  font-size: 10px;
+  color: #657181;
+  letter-spacing: 2px;
+  margin: 20px 10px 12px;
+}
+
+.nav-item {
+  padding: 12px;
+  border-radius: 8px;
+  color: #aab4c1;
+  margin-bottom: 5px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.nav-item.active {
+  background: #1b2634;
+  color: #d9b978;
+  border: 1px solid #29394c;
+}
+
+.nav-item:hover {
+  background: #18212c;
+}
+
+.sidebar-footer {
+  margin-top: 40px;
+  border-top: 1px solid var(--border);
+  padding: 15px 10px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+main {
+  padding: 28px;
+  min-width: 0;
+  max-width: 1600px;
+  width: 100%;
+  margin: auto;
+}
+
+/* CITY HERO */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  min-height: 230px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background:
+    linear-gradient(90deg, #0b1018 5%, #0b1018dd 55%, #0b101888),
+    url('https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=1800&q=85')
+    center 52% / cover;
+  display: flex;
+  align-items: center;
+  padding: 32px;
+  margin-bottom: 25px;
+}
+
+.hero-content {
+  max-width: 600px;
+}
+
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.hero h1 {
+  font-size: clamp(26px, 4vw, 44px);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: #aab5c3;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.hero-tag {
+  position: absolute;
+  right: 25px;
+  bottom: 25px;
+  background: #101721dd;
+  border: 1px solid #364251;
+  padding: 10px 15px;
+  border-radius: 7px;
+  font-size: 11px;
+  color: #ccd3dd;
+}
+
+/* CARDS */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 19px;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.stat-value {
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.stat-note {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 9px;
+}
+
+.gold { color: var(--gold); }
+.green { color: var(--green); }
+.blue { color: var(--blue); }
+
+/* SECTIONS */
+
+.section {
+  margin-top: 25px;
+}
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.section-head h2 {
+  font-size: 17px;
+}
+
+.section-head p {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 5px;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background: #1b2634;
+  color: #dce5ef;
+  border: 1px solid #304052;
+  padding: 10px 14px;
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+.btn.primary {
+  background: #c7a66a;
+  color: #11151b;
+  border-color: #c7a66a;
+  font-weight: 700;
+}
+
+.btn.danger {
+  background: #28191b;
+  border-color: #573035;
+  color: #df9292;
+}
+
+.btn.small {
+  padding: 7px 10px;
+  font-size: 11px;
+}
+
+/* CHARACTER CARDS */
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.character {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 16px;
+  transition: .2s;
+}
+
+.character:hover {
+  border-color: #47576b;
+  transform: translateY(-2px);
+}
+
+.character-top {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+  background: #1d2b3a;
+  border: 1px solid #304254;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+}
+
+.character-name {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.character-sub {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.personality {
+  display: inline-block;
+  color: #c8a76d;
+  background: #2b251b;
+  border: 1px solid #4b3e2a;
+  border-radius: 20px;
+  padding: 4px 8px;
+  font-size: 10px;
+  margin-top: 12px;
+}
+
+.character-action {
+  font-size: 12px;
+  color: #b2bdca;
+  background: #0d1219;
+  border-radius: 7px;
+  padding: 10px;
+  margin: 12px 0;
+  line-height: 1.5;
+}
+
+.character-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.money {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.needs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.need {
+  background: #0d1219;
+  padding: 7px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.need small {
+  color: var(--muted);
+  display: block;
+  font-size: 9px;
+  margin-bottom: 5px;
+}
+
+.need strong {
+  font-size: 11px;
+}
+
+.character-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  margin-top: 12px;
+}
+
+/* ACTIVITY */
+
+.activity-layout {
+  display: grid;
+  grid-template-columns: 1fr 310px;
+  gap: 15px;
+}
+
+.activity {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 17px;
+  min-height: 280px;
+}
+
+.activity-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.activity-item {
+  padding: 10px;
+  background: #0c1117;
+  border-radius: 7px;
+  border-left: 2px solid #34485d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.activity-item .time {
+  color: var(--gold);
+  font-size: 10px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.world-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  padding: 18px;
+}
+
+.world-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.world-row:last-child {
+  border-bottom: none;
+}
+
+.world-row span {
+  color: var(--muted);
+}
+
+/* MODAL */
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #000b;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-box {
+  background: #121821;
+  border: 1px solid #334151;
+  border-radius: 14px;
+  padding: 24px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-box h2 {
+  margin-bottom: 18px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  color: #9ba8b8;
+  margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  background: #0b1016;
+  color: #e6edf5;
+  border: 1px solid #2d3846;
+  padding: 11px;
+  border-radius: 7px;
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--gold);
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px) {
+  .character-grid {
+    grid-template-columns: repeat(2, minmax(0,1fr));
+  }
+  .activity-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media(max-width:750px) {
+  header {
+    padding: 0 15px;
+  }
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;
+  }
+  main {
+    padding: 15px;
+  }
+  .hero {
+    min-height: 210px;
+    padding: 20px;
+  }
+  .hero-tag {
+    display: none;
+  }
+  .stats {
+    grid-template-columns: repeat(2,1fr);
+    gap: 9px;
+  }
+  .stat-value {
+    font-size: 22px;
+  }
+  .character-grid {
+    grid-template-columns: 1fr;
+  }
+  .section-head {
+    align-items: flex-start;
+  }
+  .header-right {
+    font-size: 10px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">PERFECT <span>ROLEPLAY</span></div>
+  <div class="header-right">
+    <div class="status"><div class="dot"></div><span id="serverStatus">ONLINE</span></div>
+    <span>OXFORD, MS</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="sidebar-title">CITY MANAGEMENT</div>
+    <div class="nav-item active">▦ &nbsp; Overview</div>
+    <div class="nav-item">♙ &nbsp; Citizens</div>
+    <div class="nav-item">⌂ &nbsp; City</div>
+    <div class="nav-item">⚖ &nbsp; Government</div>
+    <div class="nav-item">▣ &nbsp; Departments</div>
+    <div class="nav-item">▤ &nbsp; Businesses</div>
+    <div class="nav-item">◷ &nbsp; Activity</div>
+
+    <div class="sidebar-title">SIMULATION</div>
+    <div class="nav-item active">◉ &nbsp; Autonomous AI</div>
+    <div class="nav-item">⚙ &nbsp; Settings</div>
+
+    <div class="sidebar-footer">
+      PERFECT ROLEPLAY<br>
+      Oxford, Mississippi, USA<br>
+      <span class="gold">Life simulation engine v1.0</span>
+    </div>
+  </aside>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">MISSISSIPPI, UNITED STATES</div>
+        <h1>YOUR LIFE. YOUR STORY.</h1>
+        <p>
+          A living city. Independent citizens. A world that keeps moving.
+          Every decision changes someone's life.
+        </p>
+      </div>
+      <div class="hero-tag">◉ &nbsp; AUTONOMOUS CITY SIMULATION</div>
+    </section>
+
+    <section class="stats">
+      <div class="card">
+        <div class="stat-label">TOTAL CITIZENS</div>
+        <div class="stat-value" id="totalCitizens">0</div>
+        <div class="stat-note">Registered residents</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">EMPLOYED</div>
+        <div class="stat-value green" id="employed">0</div>
+        <div class="stat-note">Citizens with a job</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">CITY TREASURY</div>
+        <div class="stat-value gold" id="treasury">$0</div>
+        <div class="stat-note">Public funds</div>
+      </div>
+
+      <div class="card">
+        <div class="stat-label">SIMULATION TIME</div>
+        <div class="stat-value blue" id="simTime">08:00</div>
+        <div class="stat-note" id="simDay">Monday · Day 1</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Citizen Management</h2>
+          <p>Independent citizens living their own lives.</p>
+        </div>
+
+        <div class="controls">
+          <button class="btn" onclick="toggleSimulation()" id="pauseBtn">Ⅱ Pause</button>
+          <button class="btn" onclick="changeSpeed()">⏩ Speed: x1</button>
+          <button class="btn" onclick="generateCitizens(5)">＋ 5 Citizens</button>
+          <button class="btn primary" onclick="openModal()">＋ Create Citizen</button>
+        </div>
+      </div>
+
+      <div class="character-grid" id="characterGrid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>City Activity</h2>
+          <p>Actions and events happening around Oxford.</p>
+        </div>
+      </div>
+
+      <div class="activity-layout">
+
+        <div class="activity">
+          <div class="activity-feed" id="activityFeed"></div>
+        </div>
+
+        <div class="world-card">
+          <h3 style="font-size:14px;margin-bottom:10px;">World Information</h3>
+
+          <div class="world-row">
+            <span>Location</span>
+            <strong>Oxford, Mississippi</strong>
+          </div>
+
+          <div class="world-row">
+            <span>Population</span>
+            <strong id="worldPopulation">0</strong>
+          </div>
+
+          <div class="world-row">
+            <span>Simulation</span>
+            <strong class="green" id="worldStatus">Running</strong>
+          </div>
+
+          <div class="world-row">
+            <span>Speed</span>
+            <strong id="speedLabel">1x</strong>
+          </div>
+
+          <div class="world-row">
+            <span>Weather</span>
+            <strong id="weather">Sunny</strong>
+          </div>
+
+          <button class="btn danger" style="width:100%;margin-top:15px"
+            onclick="resetWorld()">Reset Simulation</button>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- CREATE CITIZEN MODAL -->
+
+<div class="modal" id="citizenModal">
+  <div class="modal-box">
+    <h2>Create Citizen</h2>
+
+    <div class="form-group">
+      <label>First name</label>
+      <input id="firstName" placeholder="John">
+    </div>
+
+    <div class="form-group">
+      <label>Last name</label>
+      <input id="lastName" placeholder="Smith">
+    </div>
+
+    <div class="form-group">
+      <label>Age</label>
+      <input id="age" type="number" value="25" min="18" max="90">
+    </div>
+
+    <div class="form-group">
+      <label>Occupation</label>
+      <select id="occupation"></select>
+    </div>
+
+    <div class="form-group">
+      <label>Personality</label>
+      <select id="personality"></select>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn primary" onclick="createManualCitizen()" style="flex:1">
+        Create Citizen
+      </button>
+      <button class="btn" onclick="closeModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+/* ========================================
+   PERFECT ROLEPLAY
+   AUTONOMOUS CITIZEN SIMULATION
+======================================== */
+
+const STORAGE_KEY = "perfect_roleplay_oxford_v1";
+
+const firstNames = [
+  "James","John","Michael","William","David","Robert","Daniel",
+  "Matthew","Christopher","Andrew","Joseph","Ryan","Tyler","Brandon",
+  "Jacob","Ethan","Noah","Logan","Lucas","Mason","Alexander",
+  "Benjamin","Samuel","Henry","Jack","Owen","Caleb","Nathan",
+  "Liam","Elijah","Aiden","Connor","Dylan","Hunter","Carter",
+  "Emily","Olivia","Sophia","Emma","Ava","Isabella","Mia",
+  "Charlotte","Amelia","Harper","Abigail","Elizabeth","Grace",
+  "Madison","Chloe","Lily","Ella","Victoria","Hannah","Natalie",
+  "Samantha","Ashley","Jessica","Lauren","Sarah","Anna","Claire"
+];
+
+const lastNames = [
+  "Smith","Johnson","Williams","Brown","Jones","Garcia","Miller",
+  "Davis","Wilson","Anderson","Taylor","Thomas","Moore","Martin",
+  "Jackson","White","Harris","Clark","Lewis","Robinson","Walker",
+  "Young","Allen","King","Wright","Scott","Green","Baker",
+  "Adams","Nelson","Hill","Campbell","Mitchell","Roberts",
+  "Carter","Phillips","Evans","Turner","Parker","Collins",
+  "Edwards","Stewart","Morris","Morgan","Reed","Cook","Bell"
+];
+
+const occupations = [
+  {name:"Unemployed", salary:0},
+  {name:"Barista", salary:130},
+  {name:"Waiter", salary:145},
+  {name:"Retail Worker", salary:150},
+  {name:"Mechanic", salary:220},
+  {name:"Construction Worker", salary:210},
+  {name:"Taxi Driver", salary:170},
+  {name:"Police Officer", salary:280},
+  {name:"Paramedic", salary:260},
+  {name:"Doctor", salary:420},
+  {name:"Teacher", salary:250},
+  {name:"Business Owner", salary:320},
+  {name:"Office Worker", salary:200},
+  {name:"Delivery Driver", salary:160},
+  {name:"Lawyer", salary:400}
+];
+
+const personalities = [
+  {
+    name:"Friendly",
+    social:80,
+    work:65,
+    risk:25,
+    description:"Likes meeting people and helping others."
+  },
+  {
+    name:"Introverted",
+    social:25,
+    work:70,
+    risk:15,
+    description:"Quiet, independent and prefers being alone."
+  },
+  {
+    name:"Ambitious",
+    social:55,
+    work:95,
+    risk:55,
+    description:"Focused on success, money and career growth."
+  },
+  {
+    name:"Lazy",
+    social:50,
+    work:25,
+    risk:35,
+    description:"Avoids effort and prefers relaxation."
+  },
+  {
+    name:"Reckless",
+    social:75,
+    work:45,
+    risk:95,
+    description:"Impulsive and always looking for excitement."
+  },
+  {
+    name:"Calm",
+    social:50,
+    work:65,
+    risk:10,
+    description:"Patient, balanced and rarely gets angry."
+  },
+  {
+    name:"Aggressive",
+    social:35,
+    work:60,
+    risk:80,
+    description:"Short temper and confrontational attitude."
+  },
+  {
+    name:"Intelligent",
+    social:60,
+    work:85,
+    risk:30,
+    description:"Analytical, thoughtful and strategic."
+  },
+  {
+    name:"Romantic",
+    social:85,
+    work:50,
+    risk:35,
+    description:"Values relationships and emotional connection."
+  },
+  {
+    name:"Greedy",
+    social:45,
+    work:90,
+    risk:65,
+    description:"Prioritizes wealth and personal gain."
+  }
+];
+
+const locations = [
+  "Downtown Oxford",
+  "Oxford Square",
+  "Residential District",
+  "University Area",
+  "Highway",
+  "Coffee Shop",
+  "Mechanic Shop",
+  "City Hall",
+  "Hospital",
+  "Police Department",
+  "Grocery Store",
+  "Park"
+];
+
+const emojis = {
+  "Unemployed":"🧍",
+  "Barista":"☕",
+  "Waiter":"🍽️",
+  "Retail Worker":"🛍️",
+  "Mechanic":"🔧",
+  "Construction Worker":"👷",
+  "Taxi Driver":"🚕",
+  "Police Officer":"👮",
+  "Paramedic":"🚑",
+  "Doctor":"🩺",
+  "Teacher":"📚",
+  "Business Owner":"🏪",
+  "Office Worker":"💼",
+  "Delivery Driver":"📦",
+  "Lawyer":"⚖️"
+};
+
+let citizens = [];
+let treasury = 125000;
+let simMinutes = 8 * 60;
+let simDay = 1;
+let speed = 1;
+let running = true;
+let tickCounter = 0;
+let activityLog = [];
+let weather = "Sunny";
+let interval = null;
+
+/* UTILITIES */
+
+function rand(min,max) {
+  return Math.floor(Math.random()*(max-min+1))+min;
+}
+
+function pick(array) {
+  return array[Math.floor(Math.random()*array.length)];
+}
+
+function clamp(value,min=0,max=100) {
+  return Math.max(min,Math.min(max,value));
+}
+
+function money(value) {
+  return "$" + Math.round(value).toLocaleString("en-US");
+}
+
+function randomName() {
+  return pick(firstNames)+" "+pick(lastNames);
+}
+
+function randomPersonality() {
+  return pick(personalities);
+}
+
+function randomOccupation() {
+  return pick(occupations);
+}
+
+/* CITIZEN GENERATION */
+
+function createCitizen(data={}) {
+
+  const personality = data.personality || randomPersonality();
+  const occupation = data.occupation || randomOccupation();
+
+  return {
+    id: Date.now() + Math.random(),
+
+    name: data.name || randomName(),
+    age: data.age || rand(18,65),
+
+    occupation: occupation.name,
+    salary: occupation.salary,
+
+    personality: personality.name,
+    personalityDescription: personality.description,
+    social: personality.social,
+    workEthic: personality.work,
+    risk: personality.risk,
+
+    money: data.money ?? rand(400,6500),
+
+    hunger: rand(35,90),
+    energy: rand(35,100),
+    happiness: rand(40,90),
+
+    location: pick(locations),
+    action: "Starting their day",
+    goal: generateGoal(occupation,personality),
+
+    relationships: [],
+    employed: occupation.salary > 0,
+
+    alive: true,
+    createdAt: Date.now(),
+    workProgress: 0,
+    history: []
+  };
+}
+
+function generateGoal(occupation,personality) {
+
+  if(personality.name === "Ambitious")
+    return pick([
+      "Get promoted",
+      "Save money for a car",
+      "Become successful",
+      "Buy a house"
+    ]);
+
+  if(personality.name === "Greedy")
+    return pick([
+      "Become wealthy",
+      "Earn more
